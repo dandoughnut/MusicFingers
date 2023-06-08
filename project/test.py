@@ -2,6 +2,7 @@ import cv2
 import mediapipe as mp
 import sys
 from random import randint
+import time
 
 # class for hand detection and tracking
 class handTracker():
@@ -41,12 +42,12 @@ class handTracker():
         return lmlist
 
 def main():
-    
+    how_many = 0
     cap = cv2.VideoCapture(0) # Replace 0 with the video path to use a pre-recorded video
 
     # set the webcam resolution to fit our model
-    cap.set(cv2.CV_CAP_PROP_FRAME_WIDTH, 280)
-    cap.set(cv2.CV_CAP_PROP_FRAME_HEIGHT, 280)
+    # cap.set(cv2.CV_CAP_PROP_FRAME_WIDTH, 280)
+    # cap.set(cv2.CV_CAP_PROP_FRAME_HEIGHT, 280)
 
     tracker = handTracker()
 
@@ -54,14 +55,17 @@ def main():
         success, frame = cap.read()
 
         # set the frame to gray scale or RGB (not sure which one works better for us)
-        frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        frame_rgb = cv2. cvtColor(frame, cv2.COLOR_BGR2RGB)
+        # frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        # frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         # pass frame_gray or frame_rgb into out CNN model for hand gesture recognition
         # TODO: pass frame into model
 
+        
         frame = tracker.handsFinder(frame) # passing in frame bc handsFinder converts BGR images to RGB
         lmlist = tracker.positionFinder(frame)
+        frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        frame_gray = cv2.resize(frame_gray, (128, 128), interpolation = cv2.INTER_AREA)
 
         if len(lmlist) != 0:
             
@@ -72,7 +76,11 @@ def main():
             # use x and y to map to musical notes
             # TODO: pass x and y into music-generating function
 
-        cv2.imshow('MusicFingers', frame)
+        cv2.imshow('MusicFingers', frame_gray)
+        if how_many < 10:
+            time.sleep(0.5)
+            cv2.imwrite(str(how_many)+'.png', frame_gray)
+            how_many += 1
         if cv2.waitKey(1) & 0XFF == 27: # esc key
             break # if esc key is pressed, the video window will be closed
 
