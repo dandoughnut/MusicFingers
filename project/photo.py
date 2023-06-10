@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 # current device, assign a value in cam_port 
 # variable according to that
 cam = cv2.VideoCapture(0)
-im = Image.open('./3.png')
-im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
-plt.imshow(im_gray)
+# im = Image.open('./3.png')
+# im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+# plt.imshow(im_gray)
 
 # reading the input using the camera
 
@@ -21,12 +21,13 @@ plt.imshow(im_gray)
 # show result
 current = 0
 
-for i in range(5):
+for i in range(15):
     result, image = cam.read()
     if result:
         # showing result, it take frame name and image 
         # output
         image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        
         cv2.imshow("GeeksForGeeks", image)
         time.sleep(0.5)
         # saving image in local storage

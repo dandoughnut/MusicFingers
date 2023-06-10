@@ -13,8 +13,9 @@ vid = cv2.VideoCapture(0)
 for i in range(5):      
     # Capture the video frame
     # by frame
-    ret, frame = vid.read()
     time.sleep(0.5)
+    ret, frame = vid.read()
+    print()
     # Display the resulting frame
     # cv2.imshow('Model', frame)
     #

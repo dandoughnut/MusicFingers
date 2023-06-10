@@ -72,15 +72,15 @@ def main():
             # lmlist contains [id, cx, cy]
             x = lmlist[0][1] # get the x of the first landmark
             y = lmlist[0][2] # get the y of the first landmark
-
+            print (x, y)
             # use x and y to map to musical notes
             # TODO: pass x and y into music-generating function
 
         cv2.imshow('MusicFingers', frame_gray)
-        if how_many < 10:
-            time.sleep(0.5)
-            cv2.imwrite(str(how_many)+'.png', frame_gray)
-            how_many += 1
+        # if how_many < 10:
+            # time.sleep(0.5)
+            # cv2.imwrite(str(how_many)+'.png', frame_gray)
+            # how_many += 1
         if cv2.waitKey(1) & 0XFF == 27: # esc key
             break # if esc key is pressed, the video window will be closed
 

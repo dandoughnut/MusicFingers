@@ -9,7 +9,9 @@ mpDraw = mp.solutions.drawing_utils
 finger_Coord = [(8, 6), (12, 10), (16, 14), (20, 18)]
 thumb_Coord = (4,2)
 
+
 while True:
+    upCount = 0
     success, image = cap.read()
     RGB_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     results = hands.process(RGB_image)
@@ -28,7 +30,7 @@ while True:
         start = time.time()
         
 
-        upCount = 0
+        
         for coordinate in finger_Coord:
             if handList[coordinate[0]][1] < handList[coordinate[1]][1]:
                 upCount += 1
